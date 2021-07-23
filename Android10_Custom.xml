@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <!-- remote repo and gerrit review -->
+  <include name="Android10.xml" />
+
+  <!-- gitlab conflict -->
+  <remove-project name="platform/tools/tradefederation" />
+  <remove-project name="platform/build/soong" />
+  <remove-project name="platform/bootable/recovery/rk_update" />
+  <remove-project name="platform/bootable/recovery/rk_utility" />
+  <remove-project name="platform/bootable/recovery/mtd_utils" />
+  <!-- common change -->
+  <remove-project name="rk/device/rockchip/rksdk" />
+  <remove-project name="rk/device/rockchip/rk3399" />
+  <remove-project name="platform/hardware/broadcom/libbt" />
+  <remove-project name="rk/platform/vendor/rockchip/common" />
+  <remove-project name="platform/build" />
+  <remove-project name="platform/frameworks/native" />
+  <remove-project name="platform/frameworks/base" />
+  <remove-project name="platform/packages/apps/Launcher3" />
+  <remove-project name="rk/hardware/rk29/hwcomposer_rga" />
+  <remove-project name="rk/hardware/rk29/camera_v3" />
+  <remove-project name="platform/frameworks/opt/net/wifi" />
+  <remove-project name="platform/external/noto-fonts" />
+  <remove-project name="platform/packages/apps/Settings" />
+  <remove-project name="platform/packages/providers/MediaProvider" />
+  <remove-project name="platform/system/core" />
+  <remove-project name="platform/bootable/recovery" />
+  <remove-project name="RKTools" />
+  <remove-project name="platform/packages/apps/Bluetooth" />
+  <remove-project name="platform/frameworks/av" />
+  <remove-project name="rk/hardware/rk29/audio" />
+  <!-- change -->
+  <remove-project name="rk/kernel" />
+  <remove-project name="rk/u-boot" />
+  <remove-project name="rk/rkbin" />
+  <remove-project name="kernel/configs" />
+
+  <project path="tools/tradefederation/core" name="tools/tradefederation" groups="pdk,tradefed" />
+  <project path="build/soong" name="build/soong" remote="rk" revision="refs/tags/android-10.0-mid-rkr10" >
+    <linkfile src="root.bp" dest="Android.bp" />
+    <linkfile src="bootstrap.bash" dest="bootstrap.bash" />
+  </project>
+  <project name="bootable/recovery/rkupdate" remote="rk" revision="refs/tags/android-10.0-mid-rkr10"/>
+  <project name="bootable/recovery/rkutility" remote="rk" revision="refs/tags/android-10.0-mid-rkr10"/>
+  <project name="bootable/recovery/mtdutils" remote="rk" revision="refs/tags/android-10.0-mid-rkr10"/>
+
+  <project path="device/rockchip/common" name="rk/device/rockchip/rksdk" remote="rk-vendor" revision="10cb933abfa6c14d27beeb9faf484d82007e6d40" upstream="rockchip-android-10" >
+    <copyfile src=".classpath" dest=".classpath"/>
+    <copyfile src="mkimage.sh" dest="mkimage.sh"/>
+    <copyfile src="javaenv.sh" dest="javaenv.sh"/>
+    <copyfile src="build/rockchip/build.sh" dest="build.sh"/>
+  </project>
+  <project path="device/rockchip/rk3399" name="rk/device/rockchip/rk3399" remote="rk-vendor" revision="964fa2d3326de5cdbcd13cc0a241fe8791bcc337" upstream="rockchip-android-10" >
+    <linkfile src="RockPi4B/build-rockpi-4b.sh" dest="build-rockpi-4b.sh" />
+    <linkfile src="RockPi4C/build-rockpi-4c.sh" dest="build-rockpi-4c.sh" />
+    <linkfile src="RockPi4C/build-rockpi-fuhai-evb.sh" dest="build-rockpi-fuhai-evb.sh" />
+  </project>
+  <project path="hardware/broadcom/libbt" name="platform/hardware/broadcom/libbt" groups="pdk" remote="rk-vendor" revision="0adfb3201d45dae3c7e250c480b3a62af7e581d2" upstream="rockchip-android-10" />
+  <project path="vendor/rockchip/common" name="rk/platform/vendor/rockchip/common" remote="rk-vendor" revision="8eb2c924768ae555d437219f210e35f7b28e2fb0" upstream="rockchip-android-10" />
+  <project groups="pdk" name="platform/build" path="build/make" remote="rk-vendor" revision="0bdd9f5947b145483732b84710e2da7165ff97a7" upstream="rockchip-android-10" >
+    <copyfile dest="Makefile" src="core/root.mk"/>
+    <linkfile dest="build/CleanSpec.mk" src="CleanSpec.mk"/>
+    <linkfile dest="build/buildspec.mk.default" src="buildspec.mk.default"/>
+    <linkfile dest="build/core" src="core"/>
+    <linkfile dest="build/envsetup.sh" src="envsetup.sh"/>
+    <linkfile dest="build/target" src="target"/>
+    <linkfile dest="build/tools" src="tools"/>
+  </project>
+  <project path="frameworks/native" name="platform/frameworks/native" groups="pdk" remote="rk-vendor" revision="1c1d4f322bcb7064bfbf48821ce6a64f1d5e4af6" upstream="rockchip-android-10" />
+  <project groups="pdk-cw-fs,pdk-fs" name="platform/frameworks/base" path="frameworks/base" remote="rk-vendor" revision="89d2e9b57fdcefc8e05bdd0161931b2208201028" upstream="rockchip-android-10" />
+  <project path="packages/apps/Launcher3" name="platform/packages/apps/Launcher3" groups="pdk-fs" remote="rk-vendor" revision="fbefbea794edeb61c4e5ae92d172f0a1b59fb4a6" upstream="rockchip-android-10" />
+  <project path="hardware/rockchip/hwcomposer" name="rk/hardware/rk29/hwcomposer_rga" remote="rk-vendor" revision="b4b2125a7550f42047c423b19491d7ed0f94226a" upstream="rockchip-android-10" />
+  <project groups="pdk" name="platform/frameworks/opt/net/wifi" path="frameworks/opt/net/wifi" remote="rk-vendor" revision="418a090348dc0d765abc6d76ab026269aa02c96f" upstream="rockchip-android-10" />
+  <project path="external/noto-fonts" name="platform/external/noto-fonts" groups="pdk" remote="rk-vendor" revision="53be694b018e7e2c1563ff18f7ddbd94446ca08a" upstream="rockchip-android-10" />
+  <project path="packages/apps/Settings" name="platform/packages/apps/Settings" groups="pdk-fs" remote="rk-vendor" revision="a013ddece1fb8e39b7ebc40f714966de8ebb53a1" upstream="rockchip-android-10" />
+  <project path="packages/providers/MediaProvider" name="platform/packages/providers/MediaProvider" groups="pdk-cw-fs,pdk-fs" remote="rk-vendor" revision="1d9cd36f9f253628495aff7c4bcc07a2f0712a8f" upstream="rockchip-android-10" />
+  <project path="system/core" name="platform/system/core" groups="pdk" remote="rk-vendor" revision="d7cb9a51428ae71e81a1fc2a8e7b42af53134bf8" upstream="rockchip-android-10" />
+  <project path="bootable/recovery" name="platform/bootable/recovery" groups="pdk" remote="rk-vendor" revision="6856c06ce0747687da5d768e9f8b5d9c4d5a9930" upstream="rockchip-android-10" />
+  <project path="RKTools" name="RKTools" remote="rk-vendor" revision="70590b7acec2522201b308af6fb15bd6616a88bc" upstream="rockchip-android-10" />
+  <project path="hardware/rockchip/camera" name="rk/hardware/rk29/camera_v3" remote="rk-vendor" revision="8589b07004cca9eaff8bc5a331e5f0cb0e74172a" upstream="rockchip-android-10" />
+  <project path="packages/apps/Bluetooth" name="platform/packages/apps/Bluetooth" remote="rk-vendor" revision="29b8278f657d27b41dfe418147df14eadd36472d" upstream="rockchip-android-10" />
+  <project path="hardware/rockchip/audio" name="rk/hardware/rk29/audio" remote="rk-vendor" revision="794fcb0dc2dbf9bbdbe8398185c4e6ef1f45c8cd" upstream="rockchip-android-10" />
+  <project path="frameworks/av" name="platform/frameworks/av" groups="pdk" remote="rk-vendor" revision="6af7135bbdbdf457bc59604e973aee7632623a1c" upstream="rockchip-android-10" />
+
+  <project path="kernel" name="rk/kernel" remote="rk-vendor" revision="20619440cc2ae852c32d4e4ec0f245294ddf4894" upstream="rockchip-android-10" />
+  <project path="u-boot" name="rk/u-boot" remote="rk-vendor" revision="745ea5246f1a49439f7e2dbe87b0a7c0ccc82ac3" upstream="rockchip-android-10" />
+  <project path="rkbin"  name="rk/rkbin"  remote="rk-vendor" revision="53a9ab286ba99382076f74488634a6ddcb61fe76" upstream="rockchip-android-10" />
+  <project path="kernel/configs" name="kernel/configs" groups="vts,pdk" remote="rk-vendor" revision="b7764b40fe0fc1fa34e3f06e5791a2ba1b49db4d" upstream="rockchip-android-10" >
+    <copyfile dest="kernel/kernel/configs/android-10.config" src="rockchip/android-10.config"/>
+    <copyfile dest="kernel/kernel/configs/android-10-go.config" src="rockchip/android-10-go.config"/>
+    <copyfile dest="kernel/kernel/configs/rk3326.config" src="rockchip/rk3326.config"/>
+    <copyfile dest="kernel/kernel/configs/rk3399.config" src="rockchip/rk3399.config"/>
+    <copyfile dest="kernel/kernel/configs/rockpi_4b.config" src="rockchip/rockpi_4b.config"/>
+    <copyfile dest="kernel/kernel/configs/rockpi_4c.config" src="rockchip/rockpi_4c.config"/>
+  </project>
+
+  <project path="vendor/partner_gms" name="partner_gms" remote="partner" revision="android-q-phone" upstream="android-q-phone" />
+  <project path="vendor/partner_modules" name="partner_modules" remote="partner" revision="android-q-phone" upstream="android-q-phone" />
+  <project name="vendor/customize/common" remote="rk-vendor" revision="0615dbea2dd3313f65f06ba0428894e040871864" upstream="rockchip-android-10" />
+</manifest>
